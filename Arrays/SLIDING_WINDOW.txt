@@ -1,0 +1,155 @@
+=========================================================
+SLIDING WINDOW PATTERN
+=========================================================
+
+Definition:
+Sliding Window is used to optimize problems involving
+subarrays or substrings from O(n^2) to O(n).
+
+There are two main types:
+1) Fixed Size Window
+2) Variable Size Window
+
+
+=========================================================
+1) FIXED SIZE SLIDING WINDOW
+=========================================================
+
+When to Use:
+- Window size (k) is given
+- Maximum / minimum sum of size k
+- Average of subarray of size k
+- First negative number in every window of size k
+
+-----------------------------------------
+Pseudo Code (Fixed Window)
+-----------------------------------------
+
+function fixedWindow(arr, k):
+
+    n = size of arr
+    windowSum = 0
+    result = -infinity
+
+    // first window
+    for i = 0 to k-1:
+        windowSum += arr[i]
+
+    result = windowSum
+
+    // slide window
+    for i = k to n-1:
+
+        windowSum += arr[i]
+        windowSum -= arr[i-k]
+
+        result = max(result, windowSum)
+
+    return result
+
+
+-----------------------------------------
+Time Complexity:
+-----------------------------------------
+O(n)
+
+-----------------------------------------
+Space Complexity:
+-----------------------------------------
+O(1)
+
+
+=========================================================
+2) VARIABLE SIZE SLIDING WINDOW
+=========================================================
+
+When to Use:
+- Longest substring
+- Smallest subarray
+- At most K distinct elements
+- Exactly K condition
+- Continuous subarray with condition
+- Questions containing words:
+      "longest"
+      "smallest"
+      "at most"
+      "continuous"
+      "substring"
+      "subarray"
+
+-----------------------------------------
+General Pseudo Code (Variable Window)
+-----------------------------------------
+
+function variableWindow(arr):
+
+    left = 0
+    result = 0
+
+    for right = 0 to n-1:
+
+        include arr[right] in window
+
+        while window invalid:
+
+            remove arr[left] from window
+            left++
+
+        result = max(result, right-left+1)
+
+    return result
+
+
+-----------------------------------------
+Time Complexity:
+-----------------------------------------
+O(n)
+
+Reason:
+Each element is added once (right++)
+Each element is removed once (left++)
+
+Total operations = 2n ≈ O(n)
+
+
+-----------------------------------------
+Space Complexity:
+-----------------------------------------
+O(1)  (if only counters used)
+
+O(k)  (if hashmap/set used for frequency tracking)
+
+
+=========================================================
+RECOGNITION CHECKLIST
+=========================================================
+
+Apply Sliding Window if:
+
+✔ Problem involves subarray or substring
+✔ Continuous elements
+✔ Need maximum or minimum length
+✔ Need count within window
+✔ Need to maintain frequency
+✔ Brute force would be O(n^2)
+
+
+=========================================================
+COMMON INTERVIEW EXAMPLES
+=========================================================
+
+- Maximum sum subarray of size k
+- Longest substring without repeating characters
+- Minimum size subarray sum
+- Fruits into baskets
+- Longest repeating character replacement
+
+
+=========================================================
+ONE LINE SUMMARY
+=========================================================
+
+Expand with right pointer.
+Shrink with left pointer.
+Maintain valid window.
+Update answer.

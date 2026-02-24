@@ -1,0 +1,121 @@
+=========================================================
+HASHING – FREQUENCY COUNT TEMPLATE
+=========================================================
+
+function frequencyCount(arr):
+
+    create empty hashmap freq
+
+    for each element x in arr:
+        freq[x]++
+
+    return freq
+
+
+Time Complexity:
+O(n)
+
+Space Complexity:
+O(n)
+
+Use When:
+- count elements
+- duplicates
+- majority element
+- anagram type problems
+
+=========================================================
+HASHING – TWO SUM (UNSORTED ARRAY)
+=========================================================
+
+function twoSum(arr, target):
+
+    create empty hashmap mp
+
+    for i = 0 to n-1:
+
+        complement = target - arr[i]
+
+        if complement exists in mp:
+            return indices
+
+        mp[arr[i]] = i
+
+    return not found
+
+
+Time Complexity:
+O(n)
+
+Space Complexity:
+O(n)
+
+Use When:
+- pair sum in unsorted array
+
+=========================================================
+HASHING + PREFIX SUM (SUBARRAY SUM = K)
+=========================================================
+
+function subarraySum(arr, k):
+
+    create hashmap mp
+    mp[0] = 1
+
+    prefix = 0
+    count = 0
+
+    for each element x in arr:
+
+        prefix += x
+
+        if (prefix - k) exists in mp:
+            count += mp[prefix - k]
+
+        mp[prefix]++
+
+    return count
+
+
+Time Complexity:
+O(n)
+
+Space Complexity:
+O(n)
+
+Use When:
+- subarray sum equals k
+- longest subarray with sum k
+- zero sum subarray
+
+=========================================================
+LONGEST SUBARRAY WITH SUM K
+=========================================================
+
+function longestSubarray(arr, k):
+
+    create hashmap mp
+    prefix = 0
+    maxLength = 0
+
+    for i = 0 to n-1:
+
+        prefix += arr[i]
+
+        if prefix == k:
+            maxLength = i + 1
+
+        if (prefix - k) exists in mp:
+            maxLength = max(maxLength, i - mp[prefix-k])
+
+        if prefix not in mp:
+            mp[prefix] = i
+
+    return maxLength
+
+
+Time Complexity:
+O(n)
+
+Space Complexity:
+O(n)
