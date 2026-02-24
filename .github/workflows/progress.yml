@@ -2,8 +2,9 @@ name: Update Progress
 
 on:
   push:
-    paths:
-      - "README.md"
+
+permissions:
+  contents: write
 
 jobs:
   update-progress:
@@ -12,10 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Count completed tasks
+      - name: Count tasks
+        id: count
         run: |
-          TOTAL=$(grep -E "^- \[[ x]\]" README.md | wc -l)
-          DONE=$(grep -E "^- \[x\]" README.md | wc -l)
+          TOTAL=$(grep -c "\- \[[x ]\]" README.md || true)
+          DONE=$(grep -c "\- \[x\]" README.md || true)
 
           if [ "$TOTAL" -eq 0 ]; then
             PERCENT=0
@@ -27,15 +29,36 @@ jobs:
           echo "DONE=$DONE" >> $GITHUB_ENV
           echo "PERCENT=$PERCENT" >> $GITHUB_ENV
 
-      - name: Update README
+      - name: Update README progress block
         run: |
-          sed -i "/<!-- PROGRESS_START -->/,/<!-- PROGRESS_END -->/c\
-<!-- PROGRESS_START -->\n\n## 📊 Overall Progress\n\n$DONE / $TOTAL Problems Completed\n\n![Progress](https://progress-bar.dev/$PERCENT/?title=Completed)\n\n<!-- PROGRESS_END -->" README.md
+          awk '
+          BEGIN {inside=0}
+          /<!-- PROGRESS_START -->/ {
+              print "<!-- PROGRESS_START -->"
+              print ""
+              print "## 📊 Overall Progress"
+              print ""
+              print ENVIRON["DONE"] " / " ENVIRON["TOTAL"] " Problems Completed"
+              print ""
+              print "![Progress](https://progress-bar.dev/" ENVIRON["PERCENT"] "/?title=Completed)"
+              print ""
+              inside=1
+              next
+          }
+          /<!-- PROGRESS_END -->/ {
+              print "<!-- PROGRESS_END -->"
+              inside=0
+              next
+          }
+          !inside {print}
+          ' README.md > temp.md
+
+          mv temp.md README.md
 
       - name: Commit changes
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add README.md
-          git commit -m "Auto-update progress" || echo "No changes"
+          git commit -m "Auto update progress" || echo "No changes"
           git push
