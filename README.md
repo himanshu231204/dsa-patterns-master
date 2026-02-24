@@ -47,7 +47,7 @@ This repository is dedicated to mastering **Data Structures and Algorithms** usi
 
 1 / 17 Problems Completed
 
-![Progress](https://img.shields.io/badge/Progress-6%25-brightgreen)
+![Progress](https://img.shields.io/badge/Progress-5%25-brightgreen)
 
 <!-- PROGRESS_END -->
 
