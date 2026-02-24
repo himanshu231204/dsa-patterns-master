@@ -10,13 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Count completed tasks
         run: |
-          TOTAL=$(grep -o "\- \[[x ]\]" README.md | wc -l)
-          DONE=$(grep -o "\- \[x\]" README.md | wc -l)
+          TOTAL=$(grep -E "^- \[[ x]\]" README.md | wc -l)
+          DONE=$(grep -E "^- \[x\]" README.md | wc -l)
 
           if [ "$TOTAL" -eq 0 ]; then
             PERCENT=0
@@ -28,14 +27,15 @@ jobs:
           echo "DONE=$DONE" >> $GITHUB_ENV
           echo "PERCENT=$PERCENT" >> $GITHUB_ENV
 
-      - name: Update README Progress Section
+      - name: Update README
         run: |
-          sed -i "s|<!-- PROGRESS_START -->.*<!-- PROGRESS_END -->|<!-- PROGRESS_START -->\n\n## 📊 Overall Progress\n\n$DONE / $TOTAL Problems Completed\n\n![Progress](https://progress-bar.dev/$PERCENT/?title=Completed)\n\n<!-- PROGRESS_END -->|g" README.md
+          sed -i "/<!-- PROGRESS_START -->/,/<!-- PROGRESS_END -->/c\
+<!-- PROGRESS_START -->\n\n## 📊 Overall Progress\n\n$DONE / $TOTAL Problems Completed\n\n![Progress](https://progress-bar.dev/$PERCENT/?title=Completed)\n\n<!-- PROGRESS_END -->" README.md
 
       - name: Commit changes
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add README.md
-          git commit -m "Auto-update progress" || echo "No changes to commit"
+          git commit -m "Auto-update progress" || echo "No changes"
           git push
