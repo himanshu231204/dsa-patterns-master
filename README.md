@@ -68,7 +68,7 @@ Two pointers traverse an array intelligently to reduce time complexity from **O(
 
 ## 🟢 Level 1 – Foundation
 
-- [* ] 344 – [Reverse String](https://leetcode.com/problems/reverse-string/)
+- [x ] 344 – [Reverse String](https://leetcode.com/problems/reverse-string/)
 - [ ] 125 – [Valid Palindrome](https://leetcode.com/problems/valid-palindrome/)
 - [ ] 680 – [Valid Palindrome II](https://leetcode.com/problems/valid-palindrome-ii/)
 - [ ] 977 – [Squares of a Sorted Array](https://leetcode.com/problems/squares-of-a-sorted-array/)
