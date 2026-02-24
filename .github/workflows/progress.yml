@@ -40,7 +40,7 @@ jobs:
               print ""
               print ENVIRON["DONE"] " / " ENVIRON["TOTAL"] " Problems Completed"
               print ""
-              print "![Progress](https://progress-bar.dev/" ENVIRON["PERCENT"] "/?title=Completed)"
+              print "![Progress](https://img.shields.io/badge/Progress-" ENVIRON["PERCENT"] "%25-brightgreen)"
               print ""
               inside=1
               next

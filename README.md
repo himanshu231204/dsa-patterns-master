@@ -47,7 +47,7 @@ This repository is dedicated to mastering **Data Structures and Algorithms** usi
 
 0 / 0 Problems Completed  
 
-![Progress](https://progress-bar.dev/0/?title=Completed)
+![Progress](https://img.shields.io/badge/Progress-$PERCENT%25-brightgreen)
 
 <!-- PROGRESS_END -->
 
