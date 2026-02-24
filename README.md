@@ -45,9 +45,9 @@ This repository is dedicated to mastering **Data Structures and Algorithms** usi
 
 ## 📊 Overall Progress
 
-0 / 0 Problems Completed  
+1 / 17 Problems Completed
 
-![Progress](https://progress-bar.dev/0/?title=Completed)
+![Progress](https://progress-bar.dev/5/?title=Completed)
 
 <!-- PROGRESS_END -->
 
